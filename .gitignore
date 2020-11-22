@@ -3,4 +3,5 @@
 /bin/
 /settings/*
 settings/
-
+.settings/
+.settings/*

@@ -31,6 +31,12 @@ public class DijkstraTester {
     dijkstra.addEdge(v6, v7, 1, true);
     dijkstra.addEdge(v7, v8, 7, true);
     
+    dijkstra.printGraph();
+    
+    dijkstra.removeVertex(v2);
+    System.out.println("------------------");
+    dijkstra.printGraph();
+    
     dijkstra.computeDijkstra(v0);
     for (Vertex v : dijkstra.getDijkstraPath(v4)) {
       System.out.println(v);

@@ -22,22 +22,10 @@ public class Vertex implements Comparable<Vertex> {
   /** Identifier of this vertex. */
   private int id;
   
-  /** X-coordinate of this vertex in the cartesian system. */
-  private int x;
-  
-  /** Y-coordinate of this vertex in the cartesian system. */
-  private int y;
-
-  public Vertex(int id, int x, int y) {
+  public Vertex(int id) {
     this.id = id;
-    this.x = x;
-    this.y = y;
     this.previousVertex = null;
     this.adjacencyList = new LinkedList<>();
-  }
-  
-  public Vertex(int id) {
-    this(id, 0, 0);
   }
 
   @Override
@@ -63,24 +51,14 @@ public class Vertex implements Comparable<Vertex> {
   public int hashCode() {
     int hash = 7;
     hash = 59 * hash + Objects.hashCode(this.id);
-    hash = 59 * hash + this.x;
-    hash = 59 * hash + this.y;
     return hash;
   }
 
   @Override
   public String toString() {
-    return "ID=" + this.id + ": (x=" + this.x + ", y=" + this.y + ")";
+    return "ID=" + this.id;
   }
   
-  public int getX() {
-    return this.x;
-  }
-
-  public int getY() {
-    return this.y;
-  }
-
   public int getID() {
     return this.id;
   }

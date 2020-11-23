@@ -7,8 +7,8 @@ import java.util.PriorityQueue;
 import java.util.Set;
 
 /**
- * This is a small (and hopefully portable) implementation of 
- * Dijkstra's algorithm.  
+ * This is a small (and hopefully portable) implementation of Dijkstra's
+ * algorithm.
  *
  * @author Joshua Crotts
  */
@@ -18,8 +18,8 @@ public class Dijkstra {
   private final Set<Vertex> vertices = new HashSet<>();
 
   /**
-   * Performs Dijkstra's algorithm starting at the provided
-   * source vertex. All shortest paths to each vertex are computed.
+   * Performs Dijkstra's algorithm starting at the provided source vertex. All
+   * shortest paths to each vertex are computed.
    *
    * @param source vertex to start at.
    * 
@@ -31,7 +31,7 @@ public class Dijkstra {
     PriorityQueue<Vertex> heap = new PriorityQueue<>();
     heap.add(source);
 
-    while ( ! heap.isEmpty()) {
+    while (!heap.isEmpty()) {
       Vertex u = heap.poll();
 
       /* Visit all adjacencies. */
@@ -51,9 +51,8 @@ public class Dijkstra {
   }
 
   /**
-   * Returns the Dijkstra shortest path from the source vertex
-   * to the target vertex. This assumes that computeDijkstra() has
-   * previously been called.
+   * Returns the Dijkstra shortest path from the source vertex to the target
+   * vertex. This assumes that computeDijkstra() has previously been called.
    * 
    * @param target - destination vertex.
    * 
@@ -78,11 +77,10 @@ public class Dijkstra {
     Collections.reverse(path);
     return path;
   }
-  
+
   /**
-   * Adds a vertex with no edge to the graph. This should 
-   * really only be used if you have a reference to the Vertex
-   * somewhere else.
+   * Adds a vertex with no edge to the graph. This should really only be used if
+   * you have a reference to the Vertex somewhere else.
    * 
    * @param src vertex to add.
    * 
@@ -95,10 +93,10 @@ public class Dijkstra {
   /**
    * Adds an edge to the graph.
    * 
-   * @param src source vertex.
-   * @param dest destination vertex.
+   * @param src      source vertex.
+   * @param dest     destination vertex.
    * @param distance used for edge.
-   * @param boolean determining if edge is undirected or not.
+   * @param boolean  determining if edge is undirected or not.
    * 
    * @return void.
    */
@@ -106,17 +104,17 @@ public class Dijkstra {
     this.vertices.add(src);
     this.vertices.add(dest);
     new Edge(src, dest, distance);
-    
+
     if (isUndirected) {
       this.addEdge(dest, src, distance, false);
     }
   }
-  
+
   /**
    * Adds an edge to the graph. No distance is applied here.
    * 
-   * @param src source vertex
-   * @param dest destination vertex.
+   * @param src          source vertex
+   * @param dest         destination vertex.
    * @param isUndirected boolean determining if edge is undirected.
    * 
    * @return void.
@@ -125,15 +123,14 @@ public class Dijkstra {
     this.vertices.add(src);
     this.vertices.add(dest);
     new Edge(src, dest);
-    
+
     if (isUndirected) {
       this.addEdge(dest, src, false);
     }
   }
-  
+
   /**
-   * Removes a vertex from the graph. This may need 
-   * more testing!
+   * Removes a vertex from the graph. This may need more testing!
    * 
    * @param src vertex to remove.
    * 
@@ -142,20 +139,20 @@ public class Dijkstra {
   public void removeVertex(Vertex src) {
     src.adjacencyList.clear();
     for (Vertex v : this.vertices) {
-        for (int e = 0; e < v.getAdjacencyList().size(); e++) {
-          Edge edge = v.getAdjacencyList().get(e);
-          if (edge.getSource() == src || edge.getDestination() == src) {
-            v.getAdjacencyList().remove(edge);
-            e--;
-          }
+      for (int e = 0; e < v.getAdjacencyList().size(); e++) {
+        Edge edge = v.getAdjacencyList().get(e);
+        if (edge.getSource() == src || edge.getDestination() == src) {
+          v.getAdjacencyList().remove(edge);
+          e--;
         }
+      }
     }
-    
+
     this.vertices.remove(src);
   }
-  
+
   /**
-   * Clears all edges from the graph. 
+   * Clears all edges from the graph.
    * 
    * @param void.
    * 
@@ -166,10 +163,28 @@ public class Dijkstra {
       v.adjacencyList.clear();
       v.distanceFromSource = 0;
     }
-    
+
     this.vertices.clear();
   }
   
+  /**
+   * Prints the graph vertices (with their adjacency lists) to standard output.
+   * 
+   * @param void.
+   * 
+   * @return void.
+   */
+  public void printGraph() {
+    for (Vertex v : this.vertices) {
+      System.out.printf("Vertex ID={%d}\t ==> {", v.getID());
+      for (int i = 0; i < v.adjacencyList.size(); i++) {
+        Edge e = v.adjacencyList.get(i);
+        System.out.printf("%s, ", e.toString());
+      }
+      System.out.printf("}\n");
+    }
+  }
+
   public Set<Vertex> getVertices() {
     return this.vertices;
   }
